@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="MLStats",
-    version="0.1.2",
+    version="0.1.4",
     description="MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -13,7 +13,7 @@ setup(
     project_urls={
         'Tracker': 'https://github.com/Brritany/MLStats/issues',
     },
-    author="hyz",
+    author="Yong-Zhen Huang",
     author_email="m946111005@tmu.edu.tw",
     packages=find_packages(),
     keywords=['python', 'statistical', 'Delong test', 'Bootstrapping'],

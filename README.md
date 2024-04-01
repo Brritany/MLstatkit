@@ -1,6 +1,6 @@
 # MLStats
 
-MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including Delong's test for comparing AUCs and bootstrapping for calculating confidence intervals, among others. With its modular design, MLStats offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
+MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing AUCs and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLStats offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
 
 ## Installation
 
@@ -108,7 +108,17 @@ for score in ['auroc', 'auprc', 'f1']:
     print(f"{score.upper()} original score: {original_score:.3f}, confidence interval: [{conf_lower:.3f} - {conf_upper:.3f}]")
 ```
 
-This demonstrates how to use the `Bootstrapping` function to calculate the 95% confidence intervals for the ROC AUC score of a model based on its predictions and the true labels. This provides insights into the precision of the AUC estimation.
+## References
+
+### Delong's Test
+The implementation of `Delong_test` in MLStats is based on the following publication:
+- Xu Sun and Weichao Xu, "Fast implementation of DeLong’s algorithm for comparing the areas under correlated receiver operating characteristic curves," in *IEEE Signal Processing Letters*, vol. 21, no. 11, pp. 1389-1393, 2014, IEEE.
+
+### Bootstrapping
+The `Bootstrapping` method for calculating confidence intervals does not directly reference a single publication but is a widely accepted statistical technique for estimating the distribution of a metric by resampling with replacement. For a comprehensive overview of bootstrapping methods, see:
+- B. Efron and R. Tibshirani, "An Introduction to the Bootstrap," Chapman & Hall/CRC Monographs on Statistics & Applied Probability, 1994.
+
+These references provide the foundational methodologies behind the statistical tests and techniques implemented in MLStats, offering users insights into their theoretical underpinnings.
 
 ## Contributing
 
@@ -117,3 +127,4 @@ We welcome contributions to MLStats! Please see our contribution guidelines for 
 ## License
 
 MLStats is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
+

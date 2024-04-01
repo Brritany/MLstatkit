@@ -1,10 +1,10 @@
 LICENSE
 README.md
 setup.py
+MLSTATS/__init__.py
+MLSTATS/delong_test.py
 MLStats.egg-info/PKG-INFO
 MLStats.egg-info/SOURCES.txt
 MLStats.egg-info/dependency_links.txt
 MLStats.egg-info/requires.txt
 MLStats.egg-info/top_level.txt
-delong_test/__init__.py
-delong_test/delong_test.py

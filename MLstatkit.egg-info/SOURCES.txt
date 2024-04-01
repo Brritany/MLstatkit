@@ -1,0 +1,10 @@
+LICENSE
+README.md
+setup.py
+MLstatkit/__init__.py
+MLstatkit/stats.py
+MLstatkit.egg-info/PKG-INFO
+MLstatkit.egg-info/SOURCES.txt
+MLstatkit.egg-info/dependency_links.txt
+MLstatkit.egg-info/requires.txt
+MLstatkit.egg-info/top_level.txt

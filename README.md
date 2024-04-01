@@ -2,10 +2,7 @@
 ![PyPI - License](https://img.shields.io/pypi/l/MLstatkit)
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
-![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/MLstatkit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)
-[![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
 
 # MLstatkit
 
@@ -139,5 +136,5 @@ MLstatkit is distributed under the MIT License. For more information, see the LI
 
 ### Update log
 
-- `0.1.1`  Update `README.md`, `setup.py`
+- `0.1.1`  Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
 - `0.1.0`  First edition

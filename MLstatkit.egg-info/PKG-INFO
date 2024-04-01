@@ -1,3 +1,27 @@
+Metadata-Version: 2.1
+Name: MLstatkit
+Version: 0.1.2
+Summary: MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.
+Home-page: https://github.com/Brritany/MLstatkit
+Author: Yong-Zhen Huang
+Author-email: m946111005@tmu.edu.tw
+License: UNKNOWN
+Project-URL: Tracker, https://github.com/Brritany/MLstatkit/issues
+Keywords: python,statistics,Delong test,Bootstrapping
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 ![PyPI - Version](https://img.shields.io/pypi/v/MLstatkit)
 ![PyPI - License](https://img.shields.io/pypi/l/MLstatkit)
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
@@ -139,3 +163,4 @@ MLstatkit is distributed under the MIT License. For more information, see the LI
 - `0.1.2`  Add `Bootstrapping` operation process progress display.
 - `0.1.1`  Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
 - `0.1.0`  First edition
+

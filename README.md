@@ -137,3 +137,7 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
+### Update log
+
+- `0.1.1`  Update `README.md`, `setup.py`
+- `0.1.0`  First edition

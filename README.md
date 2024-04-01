@@ -1,11 +1,11 @@
-![PyPI - Version](https://img.shields.io/pypi/v/MLStats)
-![PyPI - License](https://img.shields.io/pypi/l/MLStats)
-![PyPI - Status](https://img.shields.io/pypi/status/MLStats)
-![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLStats)
-![PyPI - Download](https://img.shields.io/pypi/dm/MLStats)
-![PyPI - Implementation](https://img.shields.io/pypi/implementation/MLStats)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLStats)
-[![Downloads](https://static.pepy.tech/badge/MLStats)](https://pepy.tech/project/MLStats)
+![PyPI - Version](https://img.shields.io/pypi/v/MLstatkit)
+![PyPI - License](https://img.shields.io/pypi/l/MLstatkit)
+![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
+![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
+![PyPI - Implementation](https://img.shields.io/pypi/implementation/MLstatkit)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)
+[![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
 
 # MLstatkit
 
@@ -13,10 +13,10 @@ MLstatkit is a comprehensive Python library designed to seamlessly integrate est
 
 ## Installation
 
-Install MLstatkit directly from TestPyPI using pip:
+Install MLstatkit directly from PyPI using pip:
 
 ```bash
-pip install -i https://test.pypi.org/simple/ MLstatkit
+pip install MLstatkit
 ```
 
 ## Usage

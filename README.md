@@ -1,3 +1,12 @@
+![PyPI - Version](https://img.shields.io/pypi/v/MLStats)
+![PyPI - License](https://img.shields.io/pypi/l/MLStats)
+![PyPI - Status](https://img.shields.io/pypi/status/MLStats)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLStats)
+![PyPI - Download](https://img.shields.io/pypi/dm/MLStats)
+![PyPI - Implementation](https://img.shields.io/pypi/implementation/MLStats)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLStats)
+[![Downloads](https://static.pepy.tech/badge/MLStats)](https://pepy.tech/project/MLStats)
+
 # MLStats
 
 MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing AUCs and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLStats offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.

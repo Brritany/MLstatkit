@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="MLStats",
-    version="0.2.0",
+    version="0.2.1",
     description="MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -18,7 +18,7 @@ setup(
     packages=find_packages(),
     keywords=['python', 'statistical', 'Delong test', 'Bootstrapping'],
     install_requires=[
-        "pandas", "numpy", "scipy"
+        "pandas", "numpy", "scipy", "scikit-learn"
     ],
     include_package_data=True,
     classifiers=[

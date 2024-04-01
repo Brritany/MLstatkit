@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="MLStats",
+    name="MLstatkit",
     version="0.1.0",
-    description="MLStats is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.",
+    description="MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url='https://github.com/Brritany/MLStats',
+    url='https://github.com/Brritany/MLstatkit',
     project_urls={
-        'Tracker': 'https://github.com/Brritany/MLStats/issues',
+        'Tracker': 'https://github.com/Brritany/MLstatkit/issues',
     },
     author="Yong-Zhen Huang",
     author_email="m946111005@tmu.edu.tw",

@@ -6,7 +6,7 @@
 
 # MLstatkit
 
-MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing AUCs and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
+MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
 
 ## Installation
 

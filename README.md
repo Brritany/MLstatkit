@@ -20,7 +20,7 @@ pip install MLstatkit
 
 ### Delong's Test
 
-`Delong_test` function allows for statistical comparison of AUCs from two different models, providing insights into their performance differences.
+`Delong_test` function enables a statistical evaluation of the differences between the **areas under two correlated Receiver Operating Characteristic (ROC) curves derived from distinct models**. This facilitates a deeper understanding of comparative model performance.
 
 #### Parameters:
 - **true** : array-like of shape (n_samples,)  
@@ -74,10 +74,9 @@ The `Bootstrapping` function calculates confidence intervals for specified perfo
     The confidence interval level (e.g., 0.95 for 95% confidence interval, default is 0.95).
 - **threshold** : float, optional  
     Threshold to convert probabilities to binary labels for 'f1' scoring function (default is 0.5).
-- **average** : str, optional
-    This parameter is required for multiclass/multilabel targets. (default is 'macro').
-    If None, the scores for each class are returned. Otherwise, this
-    determines the type of averaging performed on the data.
+- **average** : str, optional  
+    This parameter is required for multiclass/multilabel targets. (default is 'macro').  
+    If None, the scores for each class are returned. Otherwise, this determines the type of averaging performed on the data.
 
 #### Returns:
 - **original_score** : float  
@@ -135,7 +134,7 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
-
+- `0.1.3`  Update `README.md`.
 - `0.1.2`  Add `Bootstrapping` operation process progress display.
 - `0.1.1`  Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
 - `0.1.0`  First edition

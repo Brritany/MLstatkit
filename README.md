@@ -55,11 +55,11 @@ z_score, p_value = Delong_test(true, prob_A, prob_B)
 print(f"Z-Score: {z_score}, P-Value: {p_value}")
 ```
 
-This demonstrates the usage of `Delong_test` to statistically compare the AUCs of two models based on their predictions and the ground truth labels. The returned z-score and p-value help in understanding if the difference in model performances is statistically significant.
+This demonstrates the usage of `Delong_test` to statistically compare the AUCs of two models based on their probabilities and the true labels. The returned z-score and p-value help in understanding if the difference in model performances is statistically significant.
 
 ### Bootstrapping for Confidence Intervals
 
-The `Bootstrapping` function calculates confidence intervals for specified performance metrics using bootstrapping, providing a measure of the estimation's reliability. It supports calculation for AUROC, AUPRC, and F1 score metrics.
+The `Bootstrapping` function calculates confidence intervals for specified performance metrics using bootstrapping, providing a measure of the estimation's reliability. It supports calculation for AUROC (area under the ROC curve), AUPRC (area under the precision-recall curve), and F1 score metrics.
 
 #### Parameters:
 - **true** : array-like of shape (n_samples,)  
@@ -75,8 +75,8 @@ The `Bootstrapping` function calculates confidence intervals for specified perfo
 - **threshold** : float, optional  
     Threshold to convert probabilities to binary labels for 'f1' scoring function (default is 0.5).
 - **average** : str, optional
-    This parameter is required for multiclass/multilabel targets. default is 'macro'.
-    If None, the scores for each class are returned. Otherwise, this 
+    This parameter is required for multiclass/multilabel targets. (default is 'macro').
+    If None, the scores for each class are returned. Otherwise, this
     determines the type of averaging performed on the data.
 
 #### Returns:
@@ -117,7 +117,7 @@ for score in ['auroc', 'auprc', 'f1']:
 ## References
 
 ### Delong's Test
-The implementation of `Delong_test` in MLStats is based on the following publication:
+The implementation of `Delong_test` in MLstatkit is based on the following publication:
 - Xu Sun and Weichao Xu, "Fast implementation of DeLong’s algorithm for comparing the areas under correlated receiver operating characteristic curves," in *IEEE Signal Processing Letters*, vol. 21, no. 11, pp. 1389-1393, 2014, IEEE.
 
 ### Bootstrapping

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MLstatkit
-Version: 0.1.2
+Version: 0.1.3
 Summary: MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.
 Home-page: https://github.com/Brritany/MLstatkit
 Author: Yong-Zhen Huang
@@ -30,7 +30,7 @@ License-File: LICENSE
 
 # MLstatkit
 
-MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing AUCs and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
+MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
 
 ## Installation
 
@@ -44,7 +44,7 @@ pip install MLstatkit
 
 ### Delong's Test
 
-`Delong_test` function allows for statistical comparison of AUCs from two different models, providing insights into their performance differences.
+`Delong_test` function enables a statistical evaluation of the differences between the **areas under two correlated Receiver Operating Characteristic (ROC) curves derived from distinct models**. This facilitates a deeper understanding of comparative model performance.
 
 #### Parameters:
 - **true** : array-like of shape (n_samples,)  
@@ -79,11 +79,11 @@ z_score, p_value = Delong_test(true, prob_A, prob_B)
 print(f"Z-Score: {z_score}, P-Value: {p_value}")
 ```
 
-This demonstrates the usage of `Delong_test` to statistically compare the AUCs of two models based on their predictions and the ground truth labels. The returned z-score and p-value help in understanding if the difference in model performances is statistically significant.
+This demonstrates the usage of `Delong_test` to statistically compare the AUCs of two models based on their probabilities and the true labels. The returned z-score and p-value help in understanding if the difference in model performances is statistically significant.
 
 ### Bootstrapping for Confidence Intervals
 
-The `Bootstrapping` function calculates confidence intervals for specified performance metrics using bootstrapping, providing a measure of the estimation's reliability. It supports calculation for AUROC, AUPRC, and F1 score metrics.
+The `Bootstrapping` function calculates confidence intervals for specified performance metrics using bootstrapping, providing a measure of the estimation's reliability. It supports calculation for AUROC (area under the ROC curve), AUPRC (area under the precision-recall curve), and F1 score metrics.
 
 #### Parameters:
 - **true** : array-like of shape (n_samples,)  
@@ -98,10 +98,9 @@ The `Bootstrapping` function calculates confidence intervals for specified perfo
     The confidence interval level (e.g., 0.95 for 95% confidence interval, default is 0.95).
 - **threshold** : float, optional  
     Threshold to convert probabilities to binary labels for 'f1' scoring function (default is 0.5).
-- **average** : str, optional
-    This parameter is required for multiclass/multilabel targets. default is 'macro'.
-    If None, the scores for each class are returned. Otherwise, this 
-    determines the type of averaging performed on the data.
+- **average** : str, optional  
+    This parameter is required for multiclass/multilabel targets. (default is 'macro').  
+    If None, the scores for each class are returned. Otherwise, this determines the type of averaging performed on the data.
 
 #### Returns:
 - **original_score** : float  
@@ -141,7 +140,7 @@ for score in ['auroc', 'auprc', 'f1']:
 ## References
 
 ### Delong's Test
-The implementation of `Delong_test` in MLStats is based on the following publication:
+The implementation of `Delong_test` in MLstatkit is based on the following publication:
 - Xu Sun and Weichao Xu, "Fast implementation of DeLong’s algorithm for comparing the areas under correlated receiver operating characteristic curves," in *IEEE Signal Processing Letters*, vol. 21, no. 11, pp. 1389-1393, 2014, IEEE.
 
 ### Bootstrapping
@@ -159,8 +158,9 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
-
+- `0.1.3`  Update `README.md`.
 - `0.1.2`  Add `Bootstrapping` operation process progress display.
 - `0.1.1`  Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
 - `0.1.0`  First edition
+
 

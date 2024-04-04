@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MLstatkit
-Version: 0.1.3
+Version: 0.1.4
 Summary: MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.
 Home-page: https://github.com/Brritany/MLstatkit
 Author: Yong-Zhen Huang
@@ -27,6 +27,8 @@ License-File: LICENSE
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)
+![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
+[![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
 
 # MLstatkit
 
@@ -87,24 +89,25 @@ The `Bootstrapping` function calculates confidence intervals for specified perfo
 
 #### Parameters:
 - **true** : array-like of shape (n_samples,)  
-    True binary labels in range {0, 1}.
+    True binary labels, where the labels are either {0, 1}.
 - **prob** : array-like of shape (n_samples,)  
-    Predicted probabilities or binary predictions depending on the score function.
-- **score_func_str** : str  
-    Scoring function identifier: 'auroc', 'auprc', or 'f1'.
-- **n_bootstraps** : int, optional  
-    Number of bootstrapping samples to use (default is 1000).
-- **confidence_level** : float, optional  
-    The confidence interval level (e.g., 0.95 for 95% confidence interval, default is 0.95).
-- **threshold** : float, optional  
-    Threshold to convert probabilities to binary labels for 'f1' scoring function (default is 0.5).
-- **average** : str, optional  
-    This parameter is required for multiclass/multilabel targets. (default is 'macro').  
-    If None, the scores for each class are returned. Otherwise, this determines the type of averaging performed on the data.
+    Predicted probabilities, as returned by a classifier's predict_proba method, or binary predictions based on the specified scoring function and threshold.
+- **metric_str** : str, default='f1'  
+    Identifier for the scoring function to use. Supported values include 'f1', 'accuracy', 'recall', 'precision', 'roc_auc', 'pr_auc', and 'average_precision'.
+- **n_bootstraps** : int, default=1000  
+    The number of bootstrap iterations to perform. Increasing this number improves the reliability of the confidence interval estimation but also increases computational time.
+- **confidence_level** : float, default=0.95  
+    The confidence level for the interval estimation. For instance, 0.95 represents a 95% confidence interval.
+- **threshold** : float, default=0.5  
+    A threshold value used for converting probabilities to binary labels for metrics like 'f1', where applicable.
+- **average** : str, default='macro'  
+    Specifies the method of averaging to apply to multi-class/multi-label targets. Other options include 'micro', 'samples', 'weighted', and 'binary'.
+- **random_state** : int, default=0  
+    Seed for the random number generator. This parameter ensures reproducibility of results.
 
 #### Returns:
 - **original_score** : float  
-    The original score calculated without bootstrapping.
+    The score calculated from the original dataset without bootstrapping.
 - **confidence_lower** : float  
     The lower bound of the confidence interval.
 - **confidence_upper** : float  
@@ -120,11 +123,11 @@ y_true = np.array([0, 1, 0, 0, 1, 1, 0, 1, 0])
 y_prob = np.array([0.1, 0.4, 0.35, 0.8, 0.2, 0.3, 0.4, 0.7, 0.05])
 
 # Calculate confidence intervals for AUROC
-original_score, confidence_lower, confidence_upper = Bootstrapping(y_true, y_prob, 'auroc')
+original_score, confidence_lower, confidence_upper = Bootstrapping(y_true, y_prob, 'roc_auc')
 print(f"AUROC: {original_score:.3f}, Confidence interval: [{confidence_lower:.3f} - {confidence_upper:.3f}]")
 
 # Calculate confidence intervals for AUPRC
-original_score, confidence_lower, confidence_upper = Bootstrapping(y_true, y_prob, 'auprc')
+original_score, confidence_lower, confidence_upper = Bootstrapping(y_true, y_prob, 'pr_auc')
 print(f"AUPRC: {original_score:.3f}, Confidence interval: [{confidence_lower:.3f} - {confidence_upper:.3f}]")
 
 # Calculate confidence intervals for F1 score with a custom threshold
@@ -132,9 +135,63 @@ original_score, confidence_lower, confidence_upper = Bootstrapping(y_true, y_pro
 print(f"F1 Score: {original_score:.3f}, Confidence interval: [{confidence_lower:.3f} - {confidence_upper:.3f}]")
 
 # Calculate confidence intervals for AUROC, AUPRC, F1 score
-for score in ['auroc', 'auprc', 'f1']:
+for score in ['roc_auc', 'pr_auc', 'f1']:
     original_score, conf_lower, conf_upper = Bootstrapping(y_true, y_prob, score, threshold=0.5)
     print(f"{score.upper()} original score: {original_score:.3f}, confidence interval: [{conf_lower:.3f} - {conf_upper:.3f}]")
+```
+
+### Permutation Test for Statistical Significance
+
+The `Permutation_test` function assesses the statistical significance of the difference between two models' metrics by randomly shuffling the data and recalculating the metrics to create a distribution of differences. This method does not assume a specific distribution of the data, making it a robust choice for comparing model performance.
+
+#### Parameters:
+- **y_true** : array-like of shape (n_samples,)  
+    True binary labels, where the labels are either {0, 1}.
+- **prob_model_A** : array-like of shape (n_samples,)  
+    Predicted probabilities from the first model.
+- **prob_model_B** : array-like of shape (n_samples,)  
+    Predicted probabilities from the second model.
+- **metric_str** : str, default='f1'  
+    The metric for comparison. Supported metrics include 'f1', 'accuracy', 'recall', 'precision', 'roc_auc', 'pr_auc', and 'average_precision'.
+- **n_bootstraps** : int, default=1000  
+    The number of permutation samples to generate.
+- **threshold** : float, default=0.5  
+    A threshold value used for converting probabilities to binary labels for metrics like 'f1', where applicable.
+- **average** : str, default='macro'  
+    Specifies the method of averaging to apply to multi-class/multi-label targets. Other options include 'micro', 'samples', 'weighted', and 'binary'.
+- **random_state** : int, default=0  
+    Seed for the random number generator. This parameter ensures reproducibility of results.
+
+#### Returns:
+- **metric_a** : float  
+    The calculated metric for model A using the original data.
+- **metric_b** : float  
+    The calculated metric for model B using the original data.
+- **p_value** : float  
+    The p-value from the permutation test, indicating the probability of observing a difference as extreme as, or more extreme than, the observed difference under the null hypothesis.
+- **benchmark** : float  
+    The observed difference between the metrics of model A and model B.
+- **samples_mean** : float  
+    The mean of the permuted differences.
+- **samples_std** : float  
+    The standard deviation of the permuted differences.
+
+#### Examples:
+```python
+from MLstatkit.stats import Permutation_test
+
+y_true = np.array([0, 1, 0, 0, 1, 1, 0, 1, 0])
+prob_model_A = np.array([0.1, 0.4, 0.35, 0.8, 0.2, 0.3, 0.4, 0.7, 0.05])
+prob_model_B = np.array([0.2, 0.3, 0.25, 0.85, 0.15, 0.35, 0.45, 0.65, 0.01])
+
+# Conduct a permutation test to compare F1 scores
+metric_a, metric_b, p_value, benchmark, samples_mean, samples_std = Permutation_test(
+    y_true, prob_model_A, prob_model_B, 'f1'
+)
+
+print(f"F1 Score Model A: {metric_a:.5f}, Model B: {metric_b:.5f}")
+print(f"Observed Difference: {benchmark:.5f}, p-value: {p_value:.5f}")
+print(f"Permuted Differences Mean: {samples_mean:.5f}, Std: {samples_std:.5f}")
 ```
 
 ## References
@@ -147,7 +204,11 @@ The implementation of `Delong_test` in MLstatkit is based on the following publi
 The `Bootstrapping` method for calculating confidence intervals does not directly reference a single publication but is a widely accepted statistical technique for estimating the distribution of a metric by resampling with replacement. For a comprehensive overview of bootstrapping methods, see:
 - B. Efron and R. Tibshirani, "An Introduction to the Bootstrap," Chapman & Hall/CRC Monographs on Statistics & Applied Probability, 1994.
 
-These references provide the foundational methodologies behind the statistical tests and techniques implemented in MLstatkit, offering users insights into their theoretical underpinnings.
+### Permutation Test
+The `Permutation_tests` are utilized to assess the significance of the difference in performance metrics between two models by randomly reallocating observations to groups and computing the metric. This approach does not make specific distributional assumptions, making it versatile for various data types. For a foundational discussion on permutation tests, refer to:
+- P. Good, "Permutation Tests: A Practical Guide to Resampling Methods for Testing Hypotheses," Springer Series in Statistics, 2000.
+
+These references lay the groundwork for the statistical tests and methodologies implemented in MLstatkit, providing users with a deep understanding of their scientific basis and applicability.
 
 ## Contributing
 
@@ -158,9 +219,10 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
-- `0.1.3`  Update `README.md`.
-- `0.1.2`  Add `Bootstrapping` operation process progress display.
-- `0.1.1`  Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
-- `0.1.0`  First edition
+- `0.1.4`   Update `README.md`, Add `Permutation_tests` function, Re-do `Bootstrapping` Parameters.
+- `0.1.3`   Update `README.md`.
+- `0.1.2`   Add `Bootstrapping` operation process progress display.
+- `0.1.1`   Update `README.md`, `setup.py`. Add `CONTRIBUTING.md`.
+- `0.1.0`   First edition
 
 

@@ -3,6 +3,8 @@
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)
+![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
+[![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
 
 # MLstatkit
 

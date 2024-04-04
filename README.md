@@ -66,17 +66,17 @@ The `Bootstrapping` function calculates confidence intervals for specified perfo
     True binary labels, where the labels are either {0, 1}.
 - **prob** : array-like of shape (n_samples,)  
     Predicted probabilities, as returned by a classifier's predict_proba method, or binary predictions based on the specified scoring function and threshold.
-- **metric_str** : str, default='f1'
+- **metric_str** : str, default='f1'  
     Identifier for the scoring function to use. Supported values include 'f1', 'accuracy', 'recall', 'precision', 'roc_auc', 'pr_auc', and 'average_precision'.
-- **n_bootstraps** : int, default=1000
+- **n_bootstraps** : int, default=1000  
     The number of bootstrap iterations to perform. Increasing this number improves the reliability of the confidence interval estimation but also increases computational time.
-- **confidence_level** : float, default=0.95
+- **confidence_level** : float, default=0.95  
     The confidence level for the interval estimation. For instance, 0.95 represents a 95% confidence interval.
-- **threshold** : float, default=0.5
+- **threshold** : float, default=0.5  
     A threshold value used for converting probabilities to binary labels for metrics like 'f1', where applicable.
-- **average** : str, default='macro'
+- **average** : str, default='macro'  
     Specifies the method of averaging to apply to multi-class/multi-label targets. Other options include 'micro', 'samples', 'weighted', and 'binary'.
-- **random_state** : int, default=0
+- **random_state** : int, default=0  
     Seed for the random number generator. This parameter ensures reproducibility of results.
 
 #### Returns:
@@ -125,15 +125,15 @@ The `Permutation_test` function assesses the statistical significance of the dif
     Predicted probabilities from the first model.
 - **prob_model_B** : array-like of shape (n_samples,)  
     Predicted probabilities from the second model.
-- **metric_str** : str, default='f1'
+- **metric_str** : str, default='f1'  
     The metric for comparison. Supported metrics include 'f1', 'accuracy', 'recall', 'precision', 'roc_auc', 'pr_auc', and 'average_precision'.
-- **n_bootstraps** : int, default=1000
+- **n_bootstraps** : int, default=1000  
     The number of permutation samples to generate.
-- **threshold** : float, default=0.5
+- **threshold** : float, default=0.5  
     A threshold value used for converting probabilities to binary labels for metrics like 'f1', where applicable.
-- **average** : str, default='macro'
+- **average** : str, default='macro'  
     Specifies the method of averaging to apply to multi-class/multi-label targets. Other options include 'micro', 'samples', 'weighted', and 'binary'.
-- **random_state** : int, default=0
+- **random_state** : int, default=0  
     Seed for the random number generator. This parameter ensures reproducibility of results.
 
 #### Returns:

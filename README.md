@@ -8,7 +8,7 @@
 
 # MLstatkit
 
-MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves and **Bootstrapping** for calculating confidence intervals, among others. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
+MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves, **Bootstrapping** for calculating confidence intervals, and **AUR2OR** for converting the Area Under the Receiver Operating Characteristic Curve (AUC) into several related statistics such as Cohen’s d, Pearson’s rpb, odds-ratio, and natural log odds-ratio. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
 
 ## Installation
 
@@ -170,6 +170,44 @@ print(f"Observed Difference: {benchmark:.5f}, p-value: {p_value:.5f}")
 print(f"Permuted Differences Mean: {samples_mean:.5f}, Std: {samples_std:.5f}")
 ```
 
+### Conversion of AUC to Odds Ratio (OR)
+
+The `AUC2OR` function converts an Area Under the Curve (AUC) value to an Odds Ratio (OR) and optionally returns intermediate values such as t, z, d, and ln_OR. This conversion is useful for understanding the relationship between AUC, a common metric in binary classification, and OR, which is often used in statistical analyses.
+
+#### Parameters:
+- **AUC** : float  
+    The Area Under the Curve (AUC) value to be converted.
+- **return_all** : bool, default=False  
+    If True, returns intermediate values (t, z, d, ln_OR) in addition to OR.
+
+#### Returns:
+- **OR** : float  
+    The calculated Odds Ratio (OR) from the given AUC value.
+- **t** : float, optional  
+    Intermediate value calculated from AUC.
+- **z** : float, optional  
+    Intermediate value calculated from t.
+- **d** : float, optional  
+    Intermediate value calculated from z.
+- **ln_OR** : float, optional  
+    The natural logarithm of the Odds Ratio.
+
+#### Examples:
+```python
+from MLstatkit.stats import AUC2OR
+
+AUC = 0.7  # Example AUC value
+
+# Convert AUC to OR and retrieve all intermediate values
+t, z, d, ln_OR, OR = AUC2OR(AUC, return_all=True)
+
+print(f"t: {t:.5f}, z: {z:.5f}, d: {d:.5f}, ln_OR: {ln_OR:.5f}, OR: {OR:.5f}")
+
+# Convert AUC to OR without intermediate values
+OR = AUC2OR(AUC)
+print(f"OR: {OR:.5f}")
+```
+
 ## References
 
 ### Delong's Test
@@ -186,6 +224,12 @@ The `Permutation_tests` are utilized to assess the significance of the differenc
 
 These references lay the groundwork for the statistical tests and methodologies implemented in MLstatkit, providing users with a deep understanding of their scientific basis and applicability.
 
+### AUC2OR
+The `AUR2OR` function converts the Area Under the Receiver Operating Characteristic Curve (AUC) into several related statistics including Cohen’s d, Pearson’s rpb, odds-ratio, and natural log odds-ratio. This conversion is particularly useful in interpreting the performance of classification models. For a detailed explanation of the mathematical formulas used in this conversion, refer to:
+- Salgado, J. F. (2018). "Transforming the area under the normal curve (AUC) into Cohen’s d, Pearson’s rpb, odds-ratio, and natural log odds-ratio: Two conversion tables." European Journal of Psychology Applied to Legal Context, 10(1), 35-47.
+
+These references provide the mathematical foundation for the AUR2OR function, ensuring that users can accurately interpret the statistical significance and practical implications of their model performance metrics.
+
 ## Contributing
 
 We welcome contributions to MLstatkit! Please see our contribution guidelines for more details.
@@ -195,6 +239,7 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
+- `0.1.5`   Update `README.md`, Add `AUC2OR` function.
 - `0.1.4`   Update `README.md`, Add `Permutation_tests` function, Re-do `Bootstrapping` Parameters.
 - `0.1.3`   Update `README.md`.
 - `0.1.2`   Add `Bootstrapping` operation process progress display.

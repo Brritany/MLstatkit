@@ -1,6 +1,7 @@
 from tqdm.auto import tqdm
 import pandas as pd
 import numpy as np
+import math
 import scipy.stats
 from sklearn.metrics import (
     f1_score, accuracy_score, recall_score, precision_score, 
@@ -247,3 +248,62 @@ def Permutation_test(y_true, prob_model_A, prob_model_B, metric_str='f1', n_boot
     samples_std = np.std(samples)
 
     return metric_a, metric_b, p_value, benchmark, samples_mean, samples_std
+
+def AUC2OR(AUC, return_all=False):
+    """
+    Converts Area Under the Curve (AUC) to Odds Ratio (OR) and optionally returns intermediate values.
+    
+    Parameters:
+    -----------
+    AUC : float
+        The Area Under the Curve (AUC) value to be converted.
+    return_all : bool, default=False
+        If True, returns intermediate values t, z, d, and ln_OR in addition to OR.
+    
+    Returns:
+    --------
+    OR : float
+        The calculated Odds Ratio (OR) from the given AUC value.
+    t : float, optional
+        Intermediate value calculated from AUC.
+    z : float, optional
+        Intermediate value calculated from t.
+    d : float, optional
+        Intermediate value calculated from z.
+    ln_OR : float, optional
+        The natural logarithm of the Odds Ratio.
+    
+    Notes:
+    ------
+    The function calculates several intermediate values:
+    - t : derived from the AUC using a logarithmic transformation.
+    - z : calculated from t using a polynomial approximation.
+    - d : a scaling of z.
+    - ln_OR : the natural logarithm of OR, derived from d.
+    """
+    
+    def calculate_t(AUC):
+        return math.sqrt(math.log(1 / ((1 - AUC) ** 2)))
+
+    def calculate_z(AUC):
+        t = calculate_t(AUC)
+        numerator = 2.515517 + 0.802853 * t + 0.0103328 * (t ** 2)
+        denominator = 1 + 1.432788 * t + 0.189269 * (t ** 2) + 0.001308 * (t ** 3)
+        z = t - (numerator / denominator)
+        return z
+
+    def calculate_d(AUC):
+        z = calculate_z(AUC)
+        d = z * math.sqrt(2)
+        return d
+
+    t = calculate_t(AUC)
+    z = calculate_z(AUC)
+    d = calculate_d(AUC)
+    ln_OR = (math.pi * d) / math.sqrt(3)
+    OR = math.exp(ln_OR)
+    
+    if return_all:
+        return t, z, d, ln_OR, OR
+    else:
+        return OR

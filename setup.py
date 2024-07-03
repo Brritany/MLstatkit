@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="MLstatkit",
-    version="0.1.4",
+    version="0.1.5",
     description="MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects.",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -16,9 +16,9 @@ setup(
     author="Yong-Zhen Huang",
     author_email="m946111005@tmu.edu.tw",
     packages=find_packages(),
-    keywords=['python', 'statistics', 'Delong test', 'Bootstrapping'],
+    keywords=['python', 'statistics', 'Delong test', 'Bootstrapping', 'AUC2OR'],
     install_requires=[
-        "pandas", "numpy", "scipy", "scikit-learn", "tqdm"
+        "pandas", "numpy", "scipy", "scikit-learn", "tqdm", "math"
     ],
     include_package_data=True,
     classifiers=[

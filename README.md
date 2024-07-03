@@ -239,6 +239,7 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
+- `0.1.6`   Debug.
 - `0.1.5`   Update `README.md`, Add `AUC2OR` function.
 - `0.1.4`   Update `README.md`, Add `Permutation_tests` function, Re-do `Bootstrapping` Parameters.
 - `0.1.3`   Update `README.md`.

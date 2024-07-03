@@ -3,4 +3,3 @@ numpy
 scipy
 scikit-learn
 tqdm
-math

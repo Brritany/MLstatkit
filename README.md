@@ -8,7 +8,7 @@
 
 # MLstatkit
 
-MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves, **Bootstrapping** for calculating confidence intervals, and **AUR2OR** for converting the Area Under the Receiver Operating Characteristic Curve (AUC) into several related statistics such as Cohen’s d, Pearson’s rpb, odds-ratio, and natural log odds-ratio. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
+MLstatkit is a comprehensive Python library designed to seamlessly integrate established statistical methods into machine learning projects. It encompasses a variety of tools, including **Delong's test** for comparing areas under two correlated Receiver Operating Characteristic (ROC) curves, **Bootstrapping** for calculating confidence intervals, **AUC2OR** for converting the Area Under the Receiver Operating Characteristic Curve (AUC) into several related statistics such as Cohen’s d, Pearson’s rpb, odds-ratio, and natural log odds-ratio, and **Permutation_test** for assessing the statistical significance of the difference between two models' metrics by randomly shuffling the data and recalculating the metrics to create a distribution of differences. With its modular design, MLstatkit offers researchers and data scientists a flexible and powerful toolkit to augment their analyses and model evaluations, catering to a broad spectrum of statistical testing needs within the domain of machine learning.
 
 ## Installation
 
@@ -239,6 +239,7 @@ We welcome contributions to MLstatkit! Please see our contribution guidelines fo
 MLstatkit is distributed under the MIT License. For more information, see the LICENSE file in the GitHub repository.
 
 ### Update log
+- `0.1.7`   Update `README.md`
 - `0.1.6`   Debug.
 - `0.1.5`   Update `README.md`, Add `AUC2OR` function.
 - `0.1.4`   Update `README.md`, Add `Permutation_tests` function, Re-do `Bootstrapping` Parameters.

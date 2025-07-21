@@ -8,7 +8,7 @@ from sklearn.metrics import (
     roc_auc_score, average_precision_score, precision_recall_curve, auc
 )
 
-def Delong_test(true, prob_A, prob_B):
+def Delong_test(true, prob_A, prob_B, return_ci=False, alpha=0.95):
     """
     Perform DeLong's test for comparing the AUCs of two models.
 
@@ -20,6 +20,10 @@ def Delong_test(true, prob_A, prob_B):
         Predicted probabilities by the first model.
     prob_B : array-like of shape (n_samples,)
         Predicted probabilities by the second model.
+    return_ci : bool, optional (default=False)
+        If True, also return the confidence intervals of the AUCs for both models.
+    alpha : float, optional (default=0.95)
+        Confidence level for the AUC intervals (e.g., 0.95 for 95% CI).
 
     Returns
     -------
@@ -27,14 +31,21 @@ def Delong_test(true, prob_A, prob_B):
         The z score from comparing the AUCs of two models.
     p_value : float
         The p value from comparing the AUCs of two models.
+    ci_A : tuple of floats, optional
+        The (lower, upper) confidence interval for the AUC of model A. Only returned if return_ci=True.
+    ci_B : tuple of floats, optional
+        The (lower, upper) confidence interval for the AUC of model B. Only returned if return_ci=True.
+
 
     Example
     -------
     >>> true = [0, 1, 0, 1]
     >>> prob_A = [0.1, 0.4, 0.35, 0.8]
     >>> prob_B = [0.2, 0.3, 0.4, 0.7]
-    >>> z_score, p_value = Delong_test(true, prob_A, prob_B)
-    >>> print(f"Z-Score: {z_score}, P-Value: {p_value}")
+    >>> z_score, p_value = Delong_test(true, prob_A, prob_Breturn_ci=True)
+    >>> print(f"Z-Score: {z_score:.3f}, P-Value: {p_value:.3f}")
+    >>> print(f"AUC A 95% CI: {ci_A}")
+    >>> print(f"AUC B 95% CI: {ci_B}")
     """
     def compute_midrank(x):
         J = np.argsort(x)
@@ -57,6 +68,12 @@ def Delong_test(true, prob_A, prob_B):
         order = (-true).argsort()
         label_1_count = int(true.sum())
         return order, label_1_count
+    
+    def auc_ci(auc, var, alpha):
+        z = scipy.stats.norm.ppf(1 - (1 - alpha) / 2)
+        lower = auc - z * np.sqrt(var)
+        upper = auc + z * np.sqrt(var)
+        return max(0, lower), min(1, upper)
 
     order, label_1_count = compute_ground_truth_statistics(np.array(true))
     sorted_probs = np.vstack((np.array(prob_A), np.array(prob_B)))[:, order]
@@ -88,7 +105,22 @@ def Delong_test(true, prob_A, prob_B):
     z_score = -z[0].item()
     p_value = p_value[0].item()
 
-    return z_score, p_value
+    # Calculate confidence intervals for AUCs
+    # Extract individual variances from the diagonal of the covariance matrix
+    var_auc_A = delongcov[0, 0]
+    var_auc_B = delongcov[1, 1]
+
+    ci_A = auc_ci(auc[0], var_auc_A, alpha)
+    ci_B = auc_ci(auc[1], var_auc_B, alpha)
+
+    ci_A = (ci_A[0].item(), ci_A[1].item())
+    ci_B = (ci_B[0].item(), ci_B[1].item())
+
+    if return_ci:
+        return z_score, p_value, ci_A, ci_B
+    else:
+        return z_score, p_value
+
 
 def get_metric_fn(metric_str, threshold=0.5, average='macro'):
     """

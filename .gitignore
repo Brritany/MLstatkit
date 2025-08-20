@@ -1,0 +1,39 @@
+# === Python compiled files ===
+__pycache__/
+*.py[cod]
+*.pyo
+*$py.class
+
+# === Virtual environments ===
+.venv/
+venv/
+ENV/
+env/
+
+# === Build artifacts ===
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# === Testing / Coverage ===
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+
+# === IDE / Editor ===
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# === Jupyter / Colab ===
+.ipynb_checkpoints/
+*.ipynb
+
+# === Logs / Misc ===
+*.log
+*.tmp
+.DS_Store
+Thumbs.db

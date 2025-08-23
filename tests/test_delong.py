@@ -1,5 +1,5 @@
 import numpy as np
-from MLstatkit.stats import Delong_test
+from MLstatkit import Delong_test
 
 
 def test_delong_basic_and_ci_output_types():
@@ -59,3 +59,11 @@ def test_delong_ci_alpha_monotonicity():
     # 90% CI should be narrower or equal to 95% CI
     assert width(ciA90) <= width(ciA95)
     assert width(ciB90) <= width(ciB95)
+
+def test_delong_no_signal_p_not_small():
+    rng = np.random.default_rng(42)
+    y  = np.array([0,1]*100)
+    pa = rng.random(y.size)
+    pb = rng.random(y.size)
+    _, p = Delong_test(y, pa, pb, return_ci=False)
+    assert p > 0.05

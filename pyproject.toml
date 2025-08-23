@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MLstatkit"
-version = "0.1.8"
+version = "0.1.9"
 description = "MLstatkit integrates established statistical methods into ML workflows (DeLong test, bootstrapping CI, AUC2OR, permutation test, etc.)."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -14,7 +14,15 @@ authors = [
   { name = "Yong-Zhen Huang", email = "m946111005@tmu.edu.tw" }
 ]
 
-keywords = ["python", "statistics", "DeLong test", "bootstrapping", "AUC2OR", "machine learning", "permutation test"]
+keywords = [
+  "python",
+  "statistics",
+  "DeLong test",
+  "bootstrapping",
+  "AUC2OR",
+  "machine learning",
+  "permutation test"
+]
 
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -33,11 +41,17 @@ classifiers = [
 ]
 
 dependencies = [
-  "pandas>=1.1.0",
   "numpy>=1.20.0",
   "scipy>=1.7.0",
   "scikit-learn>=1.0.0",
   "tqdm>=4.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+  "ruff>=0.5.0"
 ]
 
 [project.urls]
@@ -45,6 +59,9 @@ Homepage = "https://github.com/Brritany/MLstatkit"
 Issues = "https://github.com/Brritany/MLstatkit/issues"
 Documentation = "https://github.com/Brritany/MLstatkit#readme"
 
-# 自動尋找套件（忽略測試/文件）
 [tool.setuptools.packages.find]
 exclude = ["tests*", "examples*", "docs*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

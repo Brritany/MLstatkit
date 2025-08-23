@@ -1,5 +1,6 @@
 # MLstatkit
 
+![PyPI - Version](https://img.shields.io/pypi/v/MLstatkit)
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)

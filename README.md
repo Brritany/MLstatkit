@@ -1,11 +1,13 @@
 # MLstatkit
 
 ![PyPI - Version](https://img.shields.io/pypi/v/MLstatkit)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/Brritany/MLstatkit)
 ![PyPI - Status](https://img.shields.io/pypi/status/MLstatkit)
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/MLstatkit)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/MLstatkit)
 ![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
 [![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
+
 
 **MLstatkit** is a Python library that integrates established statistical methods into modern machine learning workflows.  
 It provides a set of core functions widely used for model evaluation and statistical inference:

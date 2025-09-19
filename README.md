@@ -8,7 +8,6 @@
 ![PyPI - Download](https://img.shields.io/pypi/dm/MLstatkit)
 [![Downloads](https://static.pepy.tech/badge/MLstatkit)](https://pepy.tech/project/MLstatkit)
 
-
 **MLstatkit** is a Python library that integrates established statistical methods into modern machine learning workflows.  
 It provides a set of core functions widely used for model evaluation and statistical inference:
 
@@ -39,60 +38,103 @@ Since version `0.1.8`, the function also supports returning **confidence interva
 
 #### Parameters (DeLong’s Test)
 
-- **true** : array-like of shape (n_samples,)  
-    True binary labels in range {0, 1}.
+- **true** : array-like of shape (n_samples,)
+    Binary ground truth labels in {0, 1}.
 
-- **prob_A** : array-like of shape (n_samples,)  
-    Predicted probabilities by the first model.
+- **prob_A**, **prob_B** : array-like of shape (n_samples,)
+    Scores or probabilities for the positive class from models A and B.
 
-- **prob_B** : array-like of shape (n_samples,)  
-    Predicted probabilities by the second model.
+- **alpha** : float, default=0.95
+    Confidence level for the AUC confidence intervals (normal approximation, clipped to [0, 1]).
 
-- **return_ci** : bool, default=False  
-    If True, also return the confidence intervals (CIs) of AUCs for both models.
+- **return_ci** : bool, default=True
+    If `True`, return `(ci_A, ci_B)` for model A and B AUCs.
 
-- **alpha** : float, default=0.95  
-    Confidence level for the AUC CIs (e.g., 0.95 for a 95% confidence interval).
+- **return_auc** : bool, default=True
+    If `True`, include `(auc_A, auc_B)` in the return tuple in addition to `z` and `p` (and optionally `(ci_A, ci_B)` if `return_ci=True`).
 
-#### Returns (DeLong’s Test)
+- **n_boot** : int, default=5000
+    Number of bootstrap resamples used if the fallback path is triggered.
 
-- **z_score** : float  
-    The z score from comparing the AUCs of two models.
+- **random_state** : int or None, default=None
+    RNG seed for reproducibility in the bootstrap path (not used for standard DeLong).
 
-- **p_value** : float  
-    The p value from comparing the AUCs of two models.
+- **verbose** : {0, 1, 2}, default=0
+  - `0`: Silent
+  - `1`: Key steps (sample counts, method, z/p, CIs)
+  - `2`: Detailed (includes var_diff, raw differences, and optional bootstrap progress)
 
-- **ci_A** : tuple(float, float), optional  
-    Lower and upper bounds of the confidence interval for model A's AUC (if `return_ci=True`).
+- **progress_every** : int, default=0
+    When `verbose >= 2`, print bootstrap progress every N iterations; `0` disables progress output.
 
-- **ci_B** : tuple(float, float), optional  
-    Lower and upper bounds of the confidence interval for model B's AUC (if `return_ci=True`).
+#### Returns (DeLong's test)
+
+Depending on `return_ci` and `return_auc`, the function returns different tuples:
+
+- `return_ci=False`, `return_auc=False` → `(z, p_value)`
+- `return_ci=True`, `return_auc=False` → `(z, p_value, ci_A, ci_B)`
+- `return_ci=False`, `return_auc=True` → `(z, p_value, auc_A, auc_B)`
+- `return_ci=True`, `return_auc=True` → `(z, p_value, ci_A, ci_B, auc_A, auc_B, info)`
+
+Where **info** (present only when both `return_ci` and `return_auc` are `True`) is a `dict` containing:
+
+- `method`: `"delong"` or `"bootstrap"`
+- `var_diff`: variance of the AUC difference (if DeLong was used)
+- `tie_rate_A`, `tie_rate_B`: tie proportions in model A and B scores
+- `n_pos`, `n_neg`: class counts
+- `n_boot`: number of effective bootstrap samples (if bootstrap)
+- `messages`: list of `(level, message)` logs captured during the run
 
 #### Example (DeLong’s Test)
 
-```python
+- Example 1 --- Minimal usage (z and p only)
+
+``` python
 from MLstatkit import Delong_test
 import numpy as np
 
-# Example data
-true = np.array([0, 1, 0, 1])
-prob_A = np.array([0.1, 0.4, 0.35, 0.8])
-prob_B = np.array([0.2, 0.3, 0.4, 0.7])
+true   = np.array([0, 1, 0, 1])
+prob_A = np.array([0.10, 0.40, 0.35, 0.80])
+prob_B = np.array([0.20, 0.30, 0.40, 0.70])
 
-# Perform DeLong's test (z-score and p-value only)
-z_score, p_value = Delong_test(true, prob_A, prob_B)
-print(f"Z-Score: {z_score}, P-Value: {p_value}")
-
-# Perform DeLong's test with 95% confidence intervals
-z_score, p_value, ci_A, ci_B = Delong_test(true, prob_A, prob_B, return_ci=True, alpha=0.95)
-print(f"Z-Score: {z_score}, P-Value: {p_value}")
-print(f"Model A AUC 95% CI: {ci_A}")
-print(f"Model B AUC 95% CI: {ci_B}")
+z, p = Delong_test(true, prob_A, prob_B, return_ci=False, return_auc=False, verbose=0)
+print(f"z = {z:.6f}, p = {p:.3e}")
 ```
 
-This demonstrates the usage of `Delong_test` to statistically compare the AUCs of two models based on their probabilities and the true labels. The returned z-score and p-value help in understanding if the difference in model performances is statistically significant.
+- Example 2 --- AUCs and 95% CIs (with method info)
 
-The output includes both significance testing (z-score and p-value) and, if requested, the confidence intervals for each model’s ROC-AUC. This makes it straightforward to compare model performance in a statistically rigorous way.
+``` python
+z, p, ci_A, ci_B, auc_A, auc_B, info = Delong_test(
+    true, prob_A, prob_B,
+    alpha=0.95, return_ci=True, return_auc=True, verbose=1
+)
+
+print(f"Method   : {info['method']}")
+print(f"AUC_A    : {auc_A:.4f}, CI_A = {ci_A}")
+print(f"AUC_B    : {auc_B:.4f}, CI_B = {ci_B}")
+print(f"z-score  : {z:.4f}, p-value = {p:.3e}")
+```
+
+- Example 3 — Degenerate case (forces bootstrap fallback)
+
+```python
+# Perfect separation for A, completely reversed scores for B
+true   = np.array([0, 1] * 50)
+prob_A = true.astype(float)        # Model A: perfect AUC = 1.0
+prob_B = 1 - true.astype(float)    # Model B: worst AUC = 0.0
+
+z, p, ci_A, ci_B, auc_A, auc_B, info = Delong_test(
+    true, prob_A, prob_B,
+    alpha=0.95, return_ci=True, return_auc=True,
+    n_boot=2000, random_state=42, verbose=2, progress_every=500
+)
+
+print("--- Bootstrap fallback example ---")
+print(f"Method   : {info['method']} (auto-fallback expected)")
+print(f"AUC_A    : {auc_A:.4f}, CI_A = {ci_A}")
+print(f"AUC_B    : {auc_B:.4f}, CI_B = {ci_B}")
+print(f"z-score  : {z}, p-value = {p:.3e}")
+```
 
 ### Bootstrapping for Confidence Intervals
 
@@ -332,6 +374,11 @@ MLstatkit is distributed under the MIT License. For more information, see the LI
 
 ### Update log
 
+- `0.1.91`
+  - DeLong’s Test: fixed z-score sign convention; added automatic bootstrap fallback when variance degenerates.
+  - Added verbose levels (0–2) and progress_every for bootstrap monitoring.
+  - Expanded return options with rich info metadata.
+  - Docs & tests: updated README (new examples, clearer parameters/returns) and extended unit tests; all passed.
 - `0.1.9`  
   - **Refactor & modularization**: split `stats.py` into multiple modules (`ci.py`, `conversions.py`, `delong.py`, `metrics.py`, `permutation.py`) for better maintainability, while preserving a unified import interface.  
   - **Functions restored**: `Bootstrapping`, `Permutation_test`, and `AUC2OR` now available again after refactor.  

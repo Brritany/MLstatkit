@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "MLstatkit"
-version = "0.1.9"
+version = "0.1.91"
 description = "MLstatkit integrates established statistical methods into ML workflows (DeLong test, bootstrapping CI, AUC2OR, permutation test, etc.)."
 readme = "README.md"
 requires-python = ">=3.8"

@@ -12,4 +12,4 @@ __all__ = [
     "AUC2OR",
     "Delong_test",
 ]
-__version__ = "0.1.9"
+__version__ = "0.1.91"
